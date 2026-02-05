@@ -4,7 +4,7 @@ from . models import Profile
 
 
 
-class signupForm(forms.ModelForm):
+class SignupForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
     role = forms.ChoiceField(choices=Profile.ROLE_CHOICES)
     city = forms.CharField(max_length=100)
