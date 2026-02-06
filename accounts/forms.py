@@ -8,7 +8,7 @@ class SignupForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
     role = forms.ChoiceField(choices=Profile.ROLE_CHOICES)
     city = forms.CharField(max_length=100)
-    role = forms.CharField(max_length=100)
+    role = forms.ChoiceField(choices=Profile.ROLE_CHOICES, widget=forms.RadioSelect)
     area = forms.CharField(max_length=100)
 
 
@@ -21,7 +21,7 @@ class SignupForm(forms.ModelForm):
         user.set_password(self.cleaned_data['password'])
         if commit:
             user.save()
-            profile = user.Profile
+            profile = user.profile
             profile.role = self.cleaned_data['role']
             profile.city = self.cleaned_data['city']
             profile.area = self.cleaned_data['area']

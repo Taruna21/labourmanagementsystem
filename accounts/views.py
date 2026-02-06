@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect
-from . forms import SignupForm
-from . models import Profile
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
-# Create your views here.
+
+from .forms import SignupForm
 
 
 def signup_view(request):
@@ -22,7 +21,7 @@ def signup_view(request):
 
 def login_view(request):
     if request.method == "POST":
-        form = AuthenticationForm(request.POST)
+        form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             user = form.get_user()
             login(request, user)
@@ -37,12 +36,24 @@ def logout_view(request):
     logout(request)
     return redirect('login')
 
+
 @login_required
 def dashboard(request):
     profile = request.user.profile
 
     if profile.role == "seeker":
-        return render(request, "accounts/seeker_dashboard.html")
-    elif profile.role == "provider":
-        return render(request, "accounts/provider_dashboard.html")
+        return render(
+            request,
+            "accounts/seeker_dashboard.html",
+            {"profile": profile}
+        )
 
+    elif profile.role == "provider":
+        return render(
+            request,
+            "accounts/provider_dashboard.html",
+            {"profile": profile}
+        )
+
+    # 🔴 Fallback (VERY IMPORTANT)
+    return redirect("login")

@@ -13,12 +13,12 @@ class Profile(models.Model):
         ('provider', 'Service Provider'),
         ('seeker', 'Service Seeker'),
     )
-    User = models.OneToOneField(User, on_delete=models.CASCADE)
-    role = models.CharField(max_length=10, choices=ROLE_CHOICES)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='seeker')
     Category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
     city = models.CharField(max_length=100)
     area = models.CharField(max_length=100)
-    is_available = models.BooleanField(max_length=100)
+    is_available = models.BooleanField(default=True)
 
 
     def __str__(self):

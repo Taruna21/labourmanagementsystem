@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Provider Dashboard{% endblock %}
+
+{% block content %}
+<h2>Welcome, {{ request.user.username }} 👋</h2>
+
+<p><strong>Role:</strong> Service Provider</p>
+<p><strong>City:</strong> {{ profile.city }}</p>
+<p><strong>Area:</strong> {{ profile.area }}</p>
+
+{% endblock %}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Labour Management System{% endblock %}</title>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <h1>Labour Management System</h1>
+
+        <nav>
+            {% if user.is_authenticated %}
+                <a href="{% url 'dashboard' %}">Dashboard</a> |
+                <a href="{% url 'logout' %}">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}">Login</a> |
+                <a href="{% url 'signup' %}">Signup</a>
+            {% endif %}
+        </nav>
+
+        <hr>
+    </header>
+
+    <!-- Page Content -->
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Labour Management System</p>
+    </footer>
+
+</body>
+</html>
